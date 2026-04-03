@@ -9,18 +9,29 @@ def main():
     parser.add_argument('--output', default='iam_audit_report.txt', help='Output filename for the report')
     args = parser.parse_args()
 
-print("Connecting to AWS...")
-client = get_iam_client()
+    print("Connecting to AWS...")
+    client = get_iam_client()
 
-print("Fetching IAM user...")
-users = get_users(client)
-print(f"Found {len(users)} users")
+    print("Fetching IAM users...")
+    users = get_users(client)
+    print(f"Found {len(users)} users")
 
-print("Running security checks...")
-findings = []
-findings += check_mfa(users, client)
-findings += check_unused_access_keys(users, client)
-findings += check_wildcard_permissions(users, client)
-findings += check_admin_policies(users, client)
-print(f"Found {len(findings)} findings")
+    print("Running security checks...")
+    findings = []
+    findings += check_mfa(users, client)
+    findings += check_unused_access_keys(users, client)
+    findings += check_wildcard_permissions(users, client)
+    findings += check_admin_policies(users, client)
+    print(f"Found {len(findings)} findings")
+
+    report = generate_report(findings, args.format)
+    save_report(report, args.output)
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
 

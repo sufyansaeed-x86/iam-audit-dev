@@ -81,4 +81,5 @@ def check_admin_policies(users, client):
                     'issue': 'Admin policy attached to non-admin user',
                     'severity': 'CRITICAL'
                 })
-    return findings
+    return findings 
+

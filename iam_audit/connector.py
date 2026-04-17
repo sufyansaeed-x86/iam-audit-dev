@@ -21,7 +21,7 @@ def get_user_policies(client, username):
 
 def get_policy_document(client, policy_arn):
     version_response = client.get_policy(PolicyArn=policy_arn)
-    version_id = version_response['Policy']['DefaultVersionID']
+    version_id = version_response['Policy']['DefaultVersionId']
 
     document_response = client.get_policy_version(
         PolicyArn=policy_arn, 
